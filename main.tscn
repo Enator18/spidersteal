@@ -24,3 +24,5 @@ shape = SubResource("BoxShape3D_jlxqr")
 transform = Transform3D(32.5274, 0, 0, 0, 0.726719, 0, 0, 0, 23.9675, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_cjhr6")
 mesh = SubResource("PlaneMesh_0q5rj")
+
+[node name="Camera3D" type="Camera3D" parent="."]
