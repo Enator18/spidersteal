@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://cx8tvtb2cvk4f"]
+
+[ext_resource type="Texture2D" uid="uid://dt0ml8buwibmc" path="res://assets/environment textures/debug_grid.png" id="1_o2lxm"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5qmmb"]
+height = 14.8812
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2la4h"]
+albedo_texture = ExtResource("1_o2lxm")
+uv1_scale = Vector3(0.601, 18.025, 0.601)
+texture_filter = 0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_mt3xe"]
+material = SubResource("StandardMaterial3D_2la4h")
+height = 14.871
+
+[node name="pole" type="StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_5qmmb")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_mt3xe")
+skeleton = NodePath("../CollisionShape3D")

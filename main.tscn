@@ -1,6 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://bca8ry5d524dx"]
+[gd_scene load_steps=16 format=3 uid="uid://bca8ry5d524dx"]
 
+[ext_resource type="PackedScene" uid="uid://c1auufbjvpep7" path="res://assets/environment textures/box.tscn" id="1_af3jb"]
 [ext_resource type="Texture2D" uid="uid://dt0ml8buwibmc" path="res://assets/environment textures/debug_grid.png" id="1_vjd12"]
+[ext_resource type="PackedScene" uid="uid://clod50tleo22p" path="res://assets/environment textures/hill.tscn" id="2_lxiof"]
+[ext_resource type="PackedScene" uid="uid://cx8tvtb2cvk4f" path="res://assets/environment textures/pole.tscn" id="3_ys3tq"]
+[ext_resource type="PackedScene" uid="uid://bfxfp288afyfi" path="res://assets/environment textures/sphere.tscn" id="4_c4rxg"]
+[ext_resource type="Script" path="res://movement.gd" id="6_gwn6q"]
+[ext_resource type="Script" path="res://camera.gd" id="7_emxo5"]
+
+[sub_resource type="Sky" id="Sky_nf1pv"]
+
+[sub_resource type="Environment" id="Environment_4trr5"]
+background_energy_multiplier = 6.05
+sky = SubResource("Sky_nf1pv")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jlxqr"]
 size = Vector3(65.0596, 0.501465, 47.9313)
@@ -12,7 +24,74 @@ texture_filter = 0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_0q5rj"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rotic"]
+albedo_color = Color(0.133196, 0.133196, 0.133196, 1)
+
+[sub_resource type="TubeTrailMesh" id="TubeTrailMesh_8x4rm"]
+radius = 1.0
+radial_steps = 12
+section_length = 0.125
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7k0sw"]
+size = Vector3(2.80762, 0.632812, 1.70312)
+
 [node name="Scene" type="Node3D"]
+
+[node name="obstacles" type="Node3D" parent="."]
+
+[node name="box" parent="obstacles" instance=ExtResource("1_af3jb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.58618, 1.15206, 1.25356)
+
+[node name="box2" parent="obstacles" instance=ExtResource("1_af3jb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.58618, 1.15206, -1.04966)
+
+[node name="box3" parent="obstacles" instance=ExtResource("1_af3jb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.58618, 1.15206, -3.34839)
+
+[node name="box4" parent="obstacles" instance=ExtResource("1_af3jb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.58618, 3.45239, 1.25356)
+
+[node name="box5" parent="obstacles" instance=ExtResource("1_af3jb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.58618, 3.44944, -3.34839)
+
+[node name="box6" parent="obstacles" instance=ExtResource("1_af3jb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.2858, 1.15206, -1.04966)
+
+[node name="box7" parent="obstacles" instance=ExtResource("1_af3jb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.88906, 3.45239, 1.25356)
+
+[node name="box8" parent="obstacles" instance=ExtResource("1_af3jb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.88906, 5.75223, 1.25356)
+
+[node name="hill" parent="obstacles" instance=ExtResource("2_lxiof")]
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 8.6882, -1.91723, 10.3941)
+
+[node name="pole" parent="obstacles" instance=ExtResource("3_ys3tq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.72256, 8.14083)
+
+[node name="pole2" parent="obstacles" instance=ExtResource("3_ys3tq")]
+transform = Transform3D(-4.2222e-08, 0.965926, -0.258819, -1, -4.37114e-08, 0, -1.13133e-08, 0.258819, 0.965926, 0, 11.0338, 8.14083)
+
+[node name="pole3" parent="obstacles" instance=ExtResource("3_ys3tq")]
+transform = Transform3D(0.947619, -0.081244, 0.308902, -0.276828, -0.691339, 0.667395, 0.159334, -0.717949, -0.677617, -7.4148, 6.19487, 1.32414)
+
+[node name="pole4" parent="obstacles" instance=ExtResource("3_ys3tq")]
+transform = Transform3D(0.0931601, -0.480339, -0.872121, 0.0203616, 0.876667, -0.480668, 0.995443, 0.0270213, 0.0914508, 10.2095, 4.98677, 9.80197)
+
+[node name="sphere" parent="obstacles" instance=ExtResource("4_c4rxg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9.08645)
+
+[node name="sphere2" parent="obstacles" instance=ExtResource("4_c4rxg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.51318, 5.53492, 8.39256)
+
+[node name="pole5" parent="obstacles" instance=ExtResource("3_ys3tq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.44865, 0.402476, 8.38247)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_4trr5")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(0.0516235, -0.880911, 0.470459, -0.50387, 0.383755, 0.773852, -0.862235, -0.276999, -0.424054, 14.0288, 22.4027, -12.2208)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
@@ -25,4 +104,23 @@ transform = Transform3D(32.5274, 0, 0, 0, 0.726719, 0, 0, 0, 23.9675, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_cjhr6")
 mesh = SubResource("PlaneMesh_0q5rj")
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(0.105448, 0, -0.994425, 0, 1, 0, 0.994425, 0, 0.105448, 0, 0, 0)
+script = ExtResource("6_gwn6q")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+transform = Transform3D(0.299674, 0, 0, 0, 0.1824, 0, 0, 0, 0.1824, -0.00238287, 0.697392, -0.00188553)
+material_override = SubResource("StandardMaterial3D_rotic")
+mesh = SubResource("TubeTrailMesh_8x4rm")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(0.1824, 0, 0, 0, 0.1824, 0, 0, 0, 0.1824, -0.00238287, 0.697392, -0.00188553)
+shape = SubResource("BoxShape3D_7k0sw")
+
+[node name="Node3D" type="Node3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.740353, 0)
+script = ExtResource("7_emxo5")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D/Node3D"]
+transform = Transform3D(-4.47035e-08, -0.258819, 0.965926, -1.13133e-08, 0.965926, 0.258819, -1, 0, -4.47035e-08, 3.55021, 2.30647, 0)
