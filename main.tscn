@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bca8ry5d524dx"]
+[gd_scene load_steps=16 format=3 uid="uid://ccsynpp3y6gxk"]
 
 [ext_resource type="PackedScene" uid="uid://c1auufbjvpep7" path="res://assets/environment textures/box.tscn" id="1_af3jb"]
 [ext_resource type="Texture2D" uid="uid://dt0ml8buwibmc" path="res://assets/environment textures/debug_grid.png" id="1_vjd12"]
