@@ -1,12 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://ccsynpp3y6gxk"]
+[gd_scene load_steps=12 format=3 uid="uid://ccsynpp3y6gxk"]
 
 [ext_resource type="PackedScene" uid="uid://c1auufbjvpep7" path="res://assets/environment textures/box.tscn" id="1_af3jb"]
 [ext_resource type="Texture2D" uid="uid://dt0ml8buwibmc" path="res://assets/environment textures/debug_grid.png" id="1_vjd12"]
 [ext_resource type="PackedScene" uid="uid://clod50tleo22p" path="res://assets/environment textures/hill.tscn" id="2_lxiof"]
 [ext_resource type="PackedScene" uid="uid://cx8tvtb2cvk4f" path="res://assets/environment textures/pole.tscn" id="3_ys3tq"]
 [ext_resource type="PackedScene" uid="uid://bfxfp288afyfi" path="res://assets/environment textures/sphere.tscn" id="4_c4rxg"]
-[ext_resource type="Script" path="res://movement.gd" id="6_gwn6q"]
-[ext_resource type="Script" path="res://camera.gd" id="7_emxo5"]
+[ext_resource type="PackedScene" uid="uid://4fktw7eggg1k" path="res://Spider.tscn" id="6_5klov"]
 
 [sub_resource type="Sky" id="Sky_nf1pv"]
 
@@ -23,17 +22,6 @@ uv1_scale = Vector3(30, 20, 20)
 texture_filter = 0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_0q5rj"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rotic"]
-albedo_color = Color(0.133196, 0.133196, 0.133196, 1)
-
-[sub_resource type="TubeTrailMesh" id="TubeTrailMesh_8x4rm"]
-radius = 1.0
-radial_steps = 12
-section_length = 0.125
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_7k0sw"]
-size = Vector3(2.80762, 0.632812, 1.70312)
 
 [node name="Scene" type="Node3D"]
 
@@ -104,23 +92,4 @@ transform = Transform3D(32.5274, 0, 0, 0, 0.726719, 0, 0, 0, 23.9675, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_cjhr6")
 mesh = SubResource("PlaneMesh_0q5rj")
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
-transform = Transform3D(0.105448, 0, -0.994425, 0, 1, 0, 0.994425, 0, 0.105448, 0, 0, 0)
-script = ExtResource("6_gwn6q")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
-transform = Transform3D(0.299674, 0, 0, 0, 0.1824, 0, 0, 0, 0.1824, -0.00238287, 0.697392, -0.00188553)
-material_override = SubResource("StandardMaterial3D_rotic")
-mesh = SubResource("TubeTrailMesh_8x4rm")
-skeleton = NodePath("")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
-transform = Transform3D(0.1824, 0, 0, 0, 0.1824, 0, 0, 0, 0.1824, -0.00238287, 0.697392, -0.00188553)
-shape = SubResource("BoxShape3D_7k0sw")
-
-[node name="Node3D" type="Node3D" parent="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.740353, 0)
-script = ExtResource("7_emxo5")
-
-[node name="Camera3D" type="Camera3D" parent="CharacterBody3D/Node3D"]
-transform = Transform3D(-4.47035e-08, -0.258819, 0.965926, -1.13133e-08, 0.965926, 0.258819, -1, 0, -4.47035e-08, 3.55021, 2.30647, 0)
+[node name="CharacterBody3D" parent="." instance=ExtResource("6_5klov")]

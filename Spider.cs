@@ -53,6 +53,8 @@ public partial class Spider : CharacterBody3D
 
 		Velocity = velocity;
 		MoveAndSlide();
+
+		
 	}
 	
 	public override void _UnhandledInput(InputEvent @event)
