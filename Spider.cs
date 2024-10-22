@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 using System;
 
 public partial class Spider : CharacterBody3D
@@ -6,6 +7,7 @@ public partial class Spider : CharacterBody3D
 	public const float Speed = 5.0f;
 	public const float JumpVelocity = 4.5f;
 	public const float LookSpeed = 0.005f;
+	public const float Gravity = 10.0f;
 
 	private SpringArm3D cameraArm;
 
@@ -22,7 +24,7 @@ public partial class Spider : CharacterBody3D
 		// Add the gravity.
 		if (!IsOnFloor())
 		{
-			velocity += GetGravity() * (float)delta;
+			velocity += Transform.Basis * new Vector3(0, -1, 0) * (float)delta * Gravity;
 		}
 
 		if (Input.IsActionPressed("Quit"))
@@ -43,18 +45,28 @@ public partial class Spider : CharacterBody3D
 		if (direction != Vector3.Zero)
 		{
 			velocity.X = direction.X * Speed;
+			velocity.Y = direction.Y * Speed;
 			velocity.Z = direction.Z * Speed;
 		}
 		else
 		{
 			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
+			velocity.Y = Mathf.MoveToward(Velocity.Y, 0, Speed);
 			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, Speed);
 		}
 
 		Velocity = velocity;
 		MoveAndSlide();
 
-		
+		PhysicsDirectSpaceState3D spaceState = GetWorld3D().DirectSpaceState;
+		PhysicsRayQueryParameters3D downQuery = PhysicsRayQueryParameters3D.Create(Position, Position + (Transform.Basis * new Vector3(0, -1, 0)));
+		Dictionary downCast = spaceState.IntersectRay(downQuery);
+
+		if (downCast.Count > 0)
+		{
+			Vector3 floorNormal = (Vector3)downCast[(Variant)"normal"];
+			GD.Print(floorNormal);
+		}
 	}
 	
 	public override void _UnhandledInput(InputEvent @event)
