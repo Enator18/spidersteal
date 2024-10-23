@@ -20,6 +20,16 @@ public partial class Spider : CharacterBody3D
 	public override void _PhysicsProcess(double delta)
 	{
 		Vector3 velocity = Velocity;
+		
+		PhysicsDirectSpaceState3D spaceState = GetWorld3D().DirectSpaceState;
+		PhysicsRayQueryParameters3D downQuery = PhysicsRayQueryParameters3D.Create(Position, Position + (Transform.Basis * new Vector3(0, -1, 0)));
+		Dictionary downCast = spaceState.IntersectRay(downQuery);
+		if (downCast.Count > 0)
+		{
+			Vector3 up = (Vector3)downCast[(Variant)"normal"];
+			UpDirection = up;
+			//Rotation = LookAt( ,up);
+		}
 
 		// Add the gravity.
 		if (!IsOnFloor())
@@ -57,16 +67,6 @@ public partial class Spider : CharacterBody3D
 
 		Velocity = velocity;
 		MoveAndSlide();
-
-		PhysicsDirectSpaceState3D spaceState = GetWorld3D().DirectSpaceState;
-		PhysicsRayQueryParameters3D downQuery = PhysicsRayQueryParameters3D.Create(Position, Position + (Transform.Basis * new Vector3(0, -1, 0)));
-		Dictionary downCast = spaceState.IntersectRay(downQuery);
-
-		if (downCast.Count > 0)
-		{
-			Vector3 floorNormal = (Vector3)downCast[(Variant)"normal"];
-			GD.Print(floorNormal);
-		}
 	}
 	
 	public override void _UnhandledInput(InputEvent @event)

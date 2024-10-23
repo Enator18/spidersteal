@@ -93,3 +93,4 @@ material_override = SubResource("StandardMaterial3D_cjhr6")
 mesh = SubResource("PlaneMesh_0q5rj")
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("6_5klov")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0155411, 0.62042, 0.00616455)
