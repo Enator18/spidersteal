@@ -74,7 +74,7 @@ public partial class Spider : CharacterBody3D
 		if(@event is InputEventMouseMotion mouseEvent)
 		{
 			float xRotation = Rotation.Y - (mouseEvent.Relative.X * LookSpeed);
-			float yRotation = cameraArm.Rotation.X + (mouseEvent.Relative.Y * LookSpeed);
+			float yRotation = cameraArm.Rotation.X + (-mouseEvent.Relative.Y * LookSpeed);
 			yRotation = Math.Max(Math.Min(yRotation, 10.0f * (float)Math.PI / 180.0f), -90.0f * (float)Math.PI / 180.0f);
 			SetRotation(new Vector3(Rotation.X, xRotation, Rotation.Z));
 			cameraArm.SetRotation(new Vector3(yRotation, cameraArm.Rotation.Y, cameraArm.Rotation.Z));
