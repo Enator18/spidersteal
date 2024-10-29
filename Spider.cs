@@ -5,7 +5,7 @@ using System;
 public partial class Spider : CharacterBody3D
 {
 	public const float Speed = 5.0f;
-	public const float JumpVelocity = 4.5f;
+	public const float JumpVelocity = 10f;
 	public const float LookSpeed = 0.005f;
 	public const float Gravity = 10.0f;
 
@@ -14,7 +14,7 @@ public partial class Spider : CharacterBody3D
 	public override void _Ready()
 	{
 		Input.SetMouseMode(Input.MouseModeEnum.Captured);
-		cameraArm = GetNode<SpringArm3D>("CameraArm");
+		cameraArm = GetNode<SpringArm3D>("PivotPoint");
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -34,7 +34,9 @@ public partial class Spider : CharacterBody3D
 		// Add the gravity.
 		if (!IsOnFloor())
 		{
-			velocity += Transform.Basis * new Vector3(0, -1, 0) * (float)delta * Gravity;
+			velocity.Y += -1 * (float) delta * Gravity * 4;
+		} else{
+			velocity.Y = 0;
 		}
 
 		if (Input.IsActionPressed("Quit"))
@@ -55,13 +57,13 @@ public partial class Spider : CharacterBody3D
 		if (direction != Vector3.Zero)
 		{
 			velocity.X = direction.X * Speed;
-			velocity.Y = direction.Y * Speed;
+//			velocity.Y = direction.Y * Speed;
 			velocity.Z = direction.Z * Speed;
 		}
 		else
 		{
 			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
-			velocity.Y = Mathf.MoveToward(Velocity.Y, 0, Speed);
+//			velocity.Y = Mathf.MoveToward(Velocity.Y, 0, Speed);
 			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, Speed);
 		}
 
@@ -75,7 +77,7 @@ public partial class Spider : CharacterBody3D
 		{
 			float xRotation = Rotation.Y - (mouseEvent.Relative.X * LookSpeed);
 			float yRotation = cameraArm.Rotation.X + (-mouseEvent.Relative.Y * LookSpeed);
-			yRotation = Math.Max(Math.Min(yRotation, 10.0f * (float)Math.PI / 180.0f), -90.0f * (float)Math.PI / 180.0f);
+			yRotation = Math.Max(Math.Min(yRotation, 60.0f * (float)Math.PI / 180.0f), -90.0f * (float)Math.PI / 180.0f);
 			SetRotation(new Vector3(Rotation.X, xRotation, Rotation.Z));
 			cameraArm.SetRotation(new Vector3(yRotation, cameraArm.Rotation.Y, cameraArm.Rotation.Z));
 		}

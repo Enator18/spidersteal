@@ -17,12 +17,12 @@ script = ExtResource("1_lg2ki")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_nb2p5")
 
-[node name="CameraArm" type="SpringArm3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.767758, 0.64074, 0, -0.64074, 0.767758, 0, 0, 0)
+[node name="PivotPoint" type="SpringArm3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.767758, 0.64074, 0, -0.64074, 0.767758, 0, 1.13507, 0)
 shape = SubResource("SphereShape3D_v7jxy")
 spring_length = 4.0
 
-[node name="Camera3D" type="Camera3D" parent="CameraArm"]
+[node name="Camera3D" type="Camera3D" parent="PivotPoint"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(-0.05, 0, -4.37114e-09, 0, 0.05, 0, 4.37114e-09, 0, -0.05, 0, -0.112208, 0)

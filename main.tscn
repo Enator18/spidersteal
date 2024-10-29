@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ccsynpp3y6gxk"]
+[gd_scene load_steps=14 format=3 uid="uid://ccsynpp3y6gxk"]
 
 [ext_resource type="PackedScene" uid="uid://c1auufbjvpep7" path="res://assets/environment textures/box.tscn" id="1_af3jb"]
 [ext_resource type="Texture2D" uid="uid://dt0ml8buwibmc" path="res://assets/environment textures/debug_grid.png" id="1_vjd12"]
@@ -6,12 +6,19 @@
 [ext_resource type="PackedScene" uid="uid://cx8tvtb2cvk4f" path="res://assets/environment textures/pole.tscn" id="3_ys3tq"]
 [ext_resource type="PackedScene" uid="uid://bfxfp288afyfi" path="res://assets/environment textures/sphere.tscn" id="4_c4rxg"]
 [ext_resource type="PackedScene" uid="uid://4fktw7eggg1k" path="res://Spider.tscn" id="6_5klov"]
+[ext_resource type="Script" path="res://swing_object.gd" id="6_ms8x5"]
+[ext_resource type="PackedScene" uid="uid://bxmwjya3ukg03" path="res://crosshair.tscn" id="7_plpcy"]
 
 [sub_resource type="Sky" id="Sky_nf1pv"]
 
 [sub_resource type="Environment" id="Environment_4trr5"]
-background_energy_multiplier = 6.05
+background_mode = 2
+background_energy_multiplier = 0.0
 sky = SubResource("Sky_nf1pv")
+ambient_light_source = 3
+ambient_light_color = Color(0.567161, 0.651159, 0.591446, 1)
+ambient_light_sky_contribution = 0.54
+ambient_light_energy = 0.84
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jlxqr"]
 size = Vector3(65.0596, 0.501465, 47.9313)
@@ -92,5 +99,20 @@ transform = Transform3D(32.5274, 0, 0, 0, 0.726719, 0, 0, 0, 23.9675, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_cjhr6")
 mesh = SubResource("PlaneMesh_0q5rj")
 
-[node name="CharacterBody3D" parent="." instance=ExtResource("6_5klov")]
+[node name="spider" parent="." instance=ExtResource("6_5klov")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0155411, 0.62042, 0.00616455)
+
+[node name="SwingObject" type="Node3D" parent="spider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0155411, -0.62042, -0.00616455)
+script = ExtResource("6_ms8x5")
+
+[node name="crosshair" parent="spider/SwingObject" instance=ExtResource("7_plpcy")]
+
+[node name="shootPoint" type="Marker3D" parent="spider/SwingObject"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.52476, 0.421298)
+
+[node name="box" parent="." instance=ExtResource("1_af3jb")]
+unique_name_in_owner = true
+transform = Transform3D(0.309418, 0, 0, 0, 0.309418, 0, 0, 0, 0.309418, 0, 0, 0)
+collision_layer = 0
+collision_mask = 0
