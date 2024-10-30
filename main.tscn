@@ -92,5 +92,39 @@ transform = Transform3D(32.5274, 0, 0, 0, 0.726719, 0, 0, 0, 23.9675, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_cjhr6")
 mesh = SubResource("PlaneMesh_0q5rj")
 
+[node name="StaticBody3D" type="StaticBody3D" parent="StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0165405, -0.249268, -0.00088501)
+shape = SubResource("BoxShape3D_jlxqr")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/StaticBody3D"]
+transform = Transform3D(32.5274, 0, 0, 0, 0.726719, 0, 0, 0, 23.9675, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_cjhr6")
+mesh = SubResource("PlaneMesh_0q5rj")
+
 [node name="CharacterBody3D" parent="." instance=ExtResource("6_5klov")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0155411, 0.62042, 0.00616455)
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.711217, -0.702973, 0, 0.702973, 0.711217, 0, 16.4384, -39.2261)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0165405, -0.249268, -0.00088501)
+shape = SubResource("BoxShape3D_jlxqr")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2"]
+transform = Transform3D(32.5274, 0, 0, 0, 0.726719, 0, 0, 0, 23.9675, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_cjhr6")
+mesh = SubResource("PlaneMesh_0q5rj")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="StaticBody3D2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0165405, -0.249268, -0.00088501)
+shape = SubResource("BoxShape3D_jlxqr")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2/StaticBody3D"]
+transform = Transform3D(32.5274, 0, 0, 0, 0.726719, 0, 0, 0, 23.9675, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_cjhr6")
+mesh = SubResource("PlaneMesh_0q5rj")

@@ -10,11 +10,13 @@ public partial class Spider : CharacterBody3D
 	public const float Gravity = 10.0f;
 
 	private SpringArm3D cameraArm;
+	private float verticalVelocity;
 
 	public override void _Ready()
 	{
 		Input.SetMouseMode(Input.MouseModeEnum.Captured);
 		cameraArm = GetNode<SpringArm3D>("CameraArm");
+		verticalVelocity = 0.0f;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -27,14 +29,17 @@ public partial class Spider : CharacterBody3D
 		if (downCast.Count > 0)
 		{
 			Vector3 up = (Vector3)downCast[(Variant)"normal"];
+			Vector3 oldUp = Transform.Basis * new Vector3(0, 1, 0);
 			UpDirection = up;
-			//Rotation = LookAt( ,up);
+			float angle = (float)Math.Acos(up.Dot(oldUp));
+			Transform3D newTransform = Transform.RotatedLocal(oldUp.Cross(up).Normalized(), angle);
+			Transform = newTransform;
 		}
 
 		// Add the gravity.
 		if (!IsOnFloor())
 		{
-			velocity += Transform.Basis * new Vector3(0, -1, 0) * (float)delta * Gravity;
+			verticalVelocity -= (float)delta * Gravity;
 		}
 
 		if (Input.IsActionPressed("Quit"))
@@ -65,6 +70,8 @@ public partial class Spider : CharacterBody3D
 			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, Speed);
 		}
 
+		velocity += Transform.Basis * new Vector3(0, verticalVelocity, 0);
+
 		Velocity = velocity;
 		MoveAndSlide();
 	}
@@ -73,10 +80,11 @@ public partial class Spider : CharacterBody3D
 	{
 		if(@event is InputEventMouseMotion mouseEvent)
 		{
-			float xRotation = Rotation.Y - (mouseEvent.Relative.X * LookSpeed);
+			//float xRotation = Rotation.Y - (mouseEvent.Relative.X * LookSpeed);
+			Transform = Transform.RotatedLocal();
 			float yRotation = cameraArm.Rotation.X + (mouseEvent.Relative.Y * LookSpeed);
 			yRotation = Math.Max(Math.Min(yRotation, 10.0f * (float)Math.PI / 180.0f), -90.0f * (float)Math.PI / 180.0f);
-			SetRotation(new Vector3(Rotation.X, xRotation, Rotation.Z));
+			//SetRotation(new Vector3(Rotation.X, xRotation, Rotation.Z));
 			cameraArm.SetRotation(new Vector3(yRotation, cameraArm.Rotation.Y, cameraArm.Rotation.Z));
 		}
 	}
